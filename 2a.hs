@@ -1,6 +1,5 @@
 import qualified Data.Map as M
 import Data.List (foldl', sort)
-import Debug.Trace
 
 -- wrong 61504
 -- copy paste error ==3 was ==2
