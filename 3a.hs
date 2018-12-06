@@ -3,6 +3,8 @@ import Data.List (foldl', sort, tails)
 import Control.Monad (replicateM)
 import Data.Maybe (mapMaybe)
 
+-- wrong confused x' and x
+
 main = interact (
     show
     . solve
