@@ -13,19 +13,21 @@ main = interact (
     . map readInt . map (:[]) . head . words
     )
 
-digSum = Seq.fromList . map readInt . map (:[]) . show . F.sum
+digSum p0 p1 = map readInt . map (:[]) . show $ p0 + p1
 
 readInt = (read :: String -> Int)
 
+
 infRec :: [Int] -> Seq.Seq Int -> [Int]
-infRec pos rec = F.toList rec ++ go pos rec
+infRec [p0,p1] rec = F.toList rec ++ go p0 p1 rec
     where
-        go pos rec =
+        go p0 p1 rec =
             let
-                diffRec = digSum (map (\p -> (rec!p)) pos)
-                newRec = rec Seq.>< diffRec
-                newPos = map (\p -> (1 + p + (rec!p)) `mod` (length newRec)) pos
-            in F.toList diffRec ++ go newPos newRec
+                diffRec = digSum (rec `Seq.index` p0) (rec `Seq.index` p1)
+                newRec = foldl' (Seq.|>) rec diffRec
+                p0' = (1 + p0 + (rec `Seq.index` p0)) `mod` (length newRec)
+                p1' = (1 + p1 + (rec `Seq.index` p1)) `mod` (length newRec)
+            in diffRec ++ go p0' p1' newRec
 
 solve :: [Int] -> Int
 solve xs =
