@@ -18,7 +18,7 @@ solve =
     fst . head . filter snd . M.assocs
     . foldr insertIds M.empty . M.elems
     . foldr (\(i,y,x) -> M.insertWith (++) (y,x) [i]) M.empty
-    . concatMap (\[i,x,y,w,h] -> [ (i, y',x') | y' <- [y..(y+h-1)], x' <- [x..(x+w-1)]])
+    . concatMap (\[i,x,y,w,h] -> [ (i,y',x') | y' <- [y..(y+h-1)], x' <- [x..(x+w-1)]])
 
 insertIds :: [Integer] -> M.Map Integer Bool -> M.Map Integer Bool
 insertIds [i] m = M.insertWith (&&) i True m
